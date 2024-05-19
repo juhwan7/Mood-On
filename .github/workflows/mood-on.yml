@@ -1,0 +1,44 @@
+name: Deploy Spring Boot Application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Grant execute permission for Gradle wrapper
+      run: chmod +x gradlew
+
+    - name: Build with Gradle
+      run: ./gradlew build -x test
+
+    - name: Add SSH key
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Copy JAR to remote server
+      run: scp -P ${{ secrets.PORT }} build/libs/*.jar ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.TARGET_DIR }}
+
+    - name: Run application on remote server
+      run: |
+        ssh -p ${{ secrets.PORT }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} << 'EOF'
+        cd ${{ secrets.TARGET_DIR }}
+        # 기존 애플리케이션 종료 (기존에 실행 중인 프로세스가 있을 경우)
+        pkill -f 'java -jar'
+        # 새로운 애플리케이션 실행
+        nohup java -jar *.jar > app.log 2>&1 &
+        EOF
