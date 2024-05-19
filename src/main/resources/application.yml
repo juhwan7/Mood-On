@@ -1,0 +1,56 @@
+secret-key-source: ${SECRET_KEY_SOURCE}
+# Server
+server:
+  port: 8080
+  servlet:
+    encoding:
+      force-response=truue:
+# Spring
+spring:
+  application:
+    name: mood-on
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(7R/inT2WdzYwdoazy7FGCONHyFGI0QGNc0U6UTQQ5AXoycjh8AKoOt7I4Y/Ad+6v6AOdGZynddiVFhuInpQYFOo1eqWD1B26VdqOOPohoGW1vY0rF+pyTuN6BgjbtVsu+uwXyQIdkY47JdxtDZGNzni+ciTXtweRSWSnk9G/oE2YepArN0SajtoJkwBX0gTYCJ/aYV8tj+5GgqdTpaWmVA==)
+    username: ENC(wI1t9W6i2dtbT9zAhf2Euw==)
+    password: ENC(3qCqRa345qTgoZ0l4X0Y1LZAYuU8My+4)
+  profiles:
+    include: oauth
+  session:
+    store-type: jdbc
+
+# Jpa
+jpa:
+  properties:
+    hibernate:
+      show_sql: true
+      format_sql: true
+      use_sql_comments: true
+  hibernate:
+    ddl-auto: update
+  generate-ddl: false
+  database: mysql
+  defer-datasource-initialization: true
+  open-in-view: false
+mvc:
+  pathmatch:
+    matching-strategy: ant_path_matcher
+
+# Jasypt
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    
+#S3
+cloud:
+  aws:
+    s3:
+      bucket: ENC(E4fhFq0wjeCZZPyfhtC+PciNpz4qhKrY)
+    credentials:
+      access-key: ENC(hcMs5RYHn2EHCQiZzYQ9JS4TbYxPrUsiSvOVjNjTY0k=)
+      secret-key: ENC(pJjrbsx88KaMmcQhPZzNQ97bV5tb+gU0SQMtx5Y8kgKYu3IxY1gzMgrKdOcKQziBPRr+iSr38e4=)
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
