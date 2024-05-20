@@ -36,7 +36,21 @@ jobs:
         port: 22
         script: |
           sudo systemctl stop myapp.service
+          
+          # /home/***/app/ 디렉토리 생성 (필요 시)
+          mkdir -p /home/***/app/
+
+          # 기존 파일 삭제
           rm -rf /home/${{ secrets.AWS_SSH_USER }}/app/*
+
+          # 파일 복사
           cp -r deploy/* /home/${{ secrets.AWS_SSH_USER }}/app/
+
+          # 환경 변수 설정 파일 생성
           echo "SECRET_KEY_SOURCE=${{ secrets.SECRET_KEY_SOURCE }}" > /home/${{ secrets.AWS_SSH_USER }}/app/.env
+
+          # 서비스 시작
           sudo systemctl start myapp.service
+
+          # 서비스 상태 확인
+          systemctl status myapp.service
