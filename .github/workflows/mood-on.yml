@@ -38,5 +38,5 @@ jobs:
           sudo systemctl stop myapp.service
           rm -rf /home/${{ secrets.AWS_SSH_USER }}/app/*
           cp -r deploy/* /home/${{ secrets.AWS_SSH_USER }}/app/
-          echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}" > /home/${{ secrets.AWS_SSH_USER }}/app/.env
+          echo "ENCRYPTION_KEY=${{ secrets.SECRET_KEY_SOURCE }}" > /home/${{ secrets.AWS_SSH_USER }}/app/.env
           sudo systemctl start myapp.service
