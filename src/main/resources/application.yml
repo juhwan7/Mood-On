@@ -40,7 +40,7 @@ mvc:
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
-    
+
 #S3
 cloud:
   aws:
