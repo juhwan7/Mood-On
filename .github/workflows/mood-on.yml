@@ -38,7 +38,7 @@ jobs:
           sudo systemctl stop myapp.service
           
           # /home/***/app/ 디렉토리 생성 (필요 시)
-          mkdir -p /home/***/app/
+          # mkdir -p /home/***/app/
 
           # 기존 파일 삭제
           rm -rf /home/${{ secrets.AWS_SSH_USER }}/app/*
