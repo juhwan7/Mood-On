@@ -49,8 +49,11 @@ jobs:
           # 깃허브 프로젝트 복제
           git clone https://github.com/juhwan7/mood-on.git
 
+          cd mood-on
+          ./gradlew build
+          
           # 파일 복사
-          cp -r /build/libs/mood-on-0.0.1-SNAPSHOT.jar /home/${{ secrets.AWS_SSH_USER }}/app/
+          cp -r /build/libs /home/${{ secrets.AWS_SSH_USER }}/app/
           
           # 환경 변수 설정 파일 생성
           echo "SECRET_KEY_SOURCE=${{ secrets.SECRET_KEY_SOURCE }}" > /home/${{ secrets.AWS_SSH_USER }}/app/.env
