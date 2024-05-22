@@ -53,7 +53,7 @@ jobs:
           ./gradlew build
           
           # 파일 복사
-          cp -r /build/libs /home/${{ secrets.AWS_SSH_USER }}/app/
+          cp -r /mood-on/build/libs /home/${{ secrets.AWS_SSH_USER }}/app/
           
           # 환경 변수 설정 파일 생성
           echo "SECRET_KEY_SOURCE=${{ secrets.SECRET_KEY_SOURCE }}" > /home/${{ secrets.AWS_SSH_USER }}/app/.env
