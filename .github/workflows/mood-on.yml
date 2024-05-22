@@ -58,7 +58,7 @@ jobs:
           # 빌드 결과물 확인
           if [ -d "build/libs" ]; then
               # 파일 복사
-              cp -r mood-on/build/libs/* /home/${{ secrets.AWS_SSH_USER }}/app/
+              cp -r build/libs/* /home/${{ secrets.AWS_SSH_USER }}/app/
           else
               echo "빌드 결과물 디렉토리가 존재하지 않습니다."
               exit 1
