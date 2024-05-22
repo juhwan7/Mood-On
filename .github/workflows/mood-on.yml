@@ -54,9 +54,15 @@ jobs:
 
           cd mood-on
           ./gradlew build
-          
-          # 파일 복사
-          cp -r mood-on/build/libs /home/${{ secrets.AWS_SSH_USER }}/app/
+
+          # 빌드 결과물 확인
+          if [ -d "build/libs" ]; then
+              # 파일 복사
+              cp -r mood-on/build/libs/* /home/${{ secrets.AWS_SSH_USER }}/app/
+          else
+              echo "빌드 결과물 디렉토리가 존재하지 않습니다."
+              exit 1
+          fi
           
           # 환경 변수 설정 파일 생성
           echo "SECRET_KEY_SOURCE=${{ secrets.SECRET_KEY_SOURCE }}" > /home/${{ secrets.AWS_SSH_USER }}/app/.env
