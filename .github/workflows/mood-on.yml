@@ -36,6 +36,9 @@ jobs:
         port: 22
         script: |
           sudo systemctl stop myapp.service
+
+          # Gradle 버전 지정
+          ./gradlew wrapper --gradle-version=7.3 --distribution-type=all
           
           # /home/***/app/ 디렉토리 생성 (필요 시)
           # mkdir -p /home/***/app/
